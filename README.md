@@ -1,4 +1,4 @@
-GG-Porject
+GG-Project
 ==========
 
 Google Glass
