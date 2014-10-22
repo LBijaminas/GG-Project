@@ -8,6 +8,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.widget.RemoteViews;
+import android.hardware.SensorManager;
+import android.content.Context;
 
 /**
  * A {@link Service} that publishes a {@link LiveCard} in the timeline.
@@ -18,9 +20,24 @@ public class LiveCardService extends Service {
 
     private LiveCard mLiveCard;
 
+    private Compass mCompass;
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        // get the sensor manager from the device
+        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+
+        // and create the compass
+
+        this.mCompass = new Compass(sensorManager);
+
     }
 
     @Override
