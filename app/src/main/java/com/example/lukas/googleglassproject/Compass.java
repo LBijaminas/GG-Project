@@ -10,6 +10,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.util.Log;
 
 public class Compass {
 
@@ -60,6 +61,7 @@ public class Compass {
                 // relative to true north, using the user's current location to compute this.
                 float magneticHeading = (float) Math.toDegrees(mOrientation[0]);
                 mHeading = (computeTrueNorth(magneticHeading) % 360.0f) - ARM_DISPLACEMENT_DEGREES;
+                Log.i("LUKAS", Float.toString(mHeading));
             }
         }
 
