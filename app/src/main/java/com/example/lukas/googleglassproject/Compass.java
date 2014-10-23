@@ -23,25 +23,19 @@ public class Compass {
      */
     private static final int ARM_DISPLACEMENT_DEGREES = 6;
 
-    private final SensorManager mSensorManager;
-    private final float[] mRotationMatrix;
-    private final float[] mOrientation;
+    private final SensorManager mSensorManager; // to get the sensor manager
+    private final float[] mRotationMatrix;  // to compute the rotation matrix
+    private final float[] mOrientation; // to compute the orientation
 
-    private boolean mTracking;
     private float mHeading;
     private float mPitch;
     private GeomagneticField mGeomagneticField;
-    private boolean mHasInterference;
-
 
     private SensorEventListener mSensorListener = new SensorEventListener() {
 
+        // default function that has to be implemented
         @Override
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-            if (sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD) {
-                mHasInterference = (accuracy < SensorManager.SENSOR_STATUS_ACCURACY_HIGH);
-            }
-        }
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {}
 
         @Override
         public void onSensorChanged(SensorEvent event) {
@@ -74,42 +68,20 @@ public class Compass {
     }
 
 
+    /**
+     * In start function we merely register the event listener
+     */
     public void start() {
-        if (!mTracking) {
-            mSensorManager.registerListener(mSensorListener,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),
-                    SensorManager.SENSOR_DELAY_UI);
-
-            // The rotation vector sensor doesn't give us accuracy updates, so we observe the
-            // magnetic field sensor solely for those.
-            mSensorManager.registerListener(mSensorListener,
-                    mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
-                    SensorManager.SENSOR_DELAY_UI);
-
-
-            mTracking = true;
-        }
+        mSensorManager.registerListener(mSensorListener,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),
+                SensorManager.SENSOR_DELAY_UI);
     }
 
     /**
-     * Stops tracking the user's location and orientation. Listeners will no longer be notified of
-     * these events.
+     * Unregisters the event listener
      */
     public void stop() {
-        if (mTracking) {
-            mSensorManager.unregisterListener(mSensorListener);
-            mTracking = false;
-        }
-    }
-
-    /**
-     * Gets a value indicating whether there is too much magnetic field interference for the
-     * compass to be reliable.
-     *
-     * @return true if there is magnetic interference, otherwise false
-     */
-    public boolean hasInterference() {
-        return mHasInterference;
+        mSensorManager.unregisterListener(mSensorListener);
     }
 
     /**

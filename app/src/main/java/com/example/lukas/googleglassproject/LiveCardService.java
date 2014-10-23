@@ -6,7 +6,9 @@ import com.google.android.glass.timeline.LiveCard.PublishMode;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.hardware.SensorManager;
 import android.content.Context;
@@ -35,8 +37,10 @@ public class LiveCardService extends Service {
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
         // and create the compass
-
         this.mCompass = new Compass(sensorManager);
+
+        // also we need to start the compass
+        this.mCompass.start();
 
     }
 
@@ -52,6 +56,7 @@ public class LiveCardService extends Service {
             Intent menuIntent = new Intent(this, LiveCardMenuActivity.class);
             mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
             mLiveCard.publish(PublishMode.REVEAL);
+
         } else {
             mLiveCard.navigate();
         }
