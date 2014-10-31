@@ -23,6 +23,12 @@
                 android:name="com.google.android.glass.VoiceTrigger"
                 android:resource="@xml/voice_trigger" />
         </service>
+        <service
+            android:name="edu.barry.seminar.glass.Locator"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 </manifest>
