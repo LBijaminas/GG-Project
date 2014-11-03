@@ -2,13 +2,27 @@ package com.example.lukas.googleglassproject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import edu.barry.seminar.glass.Locator;
+
 /**
- * A transparent {@link Activity} displaying a "Stop" options menu to remove the {@link LiveCard}.
+ * A transparent {@link Activity} displaying a "Stop" options menu to remove the {Live Card}.
  */
 public class LiveCardMenuActivity extends Activity {
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        //creates a new intent on the creation of the activity and starts the service
+        Intent locationIntent = new Intent(this, Locator.class);
+        startService(locationIntent);
+
+        /*
+         * TODO: Initialize the GUI here.
+         */
+    }
 
     @Override
     public void onAttachedToWindow() {
