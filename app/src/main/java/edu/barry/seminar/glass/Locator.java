@@ -14,7 +14,8 @@ public class Locator extends Service {
     Location l;
     LocationManager locationManager;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         LocationListener locationListener = new LocationListener() {
@@ -32,6 +33,8 @@ public class Locator extends Service {
 
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0,
                 locationListener);
+
+        return START_STICKY;
     }
 
     @Override
