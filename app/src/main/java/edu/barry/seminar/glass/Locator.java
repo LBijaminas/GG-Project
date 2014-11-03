@@ -14,9 +14,6 @@ public class Locator extends Service {
     Location l;
     LocationManager locationManager;
 
-    public Locator() {
-    }
-
     protected void onCreate(Bundle savedInstanceState) {
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
