@@ -20,7 +20,7 @@ public class Locator extends Service {
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 l = location;
-                Log.i("DEBUG", l.toString());
+                Log.i("[DEBUG] Location: ", l.toString());
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {}
