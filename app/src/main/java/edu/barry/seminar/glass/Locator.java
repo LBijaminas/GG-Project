@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -17,6 +18,8 @@ import com.google.android.gms.location.LocationClient;
 public class Locator extends Service implements
         GooglePlayServicesClient.ConnectionCallbacks,
         GooglePlayServicesClient.OnConnectionFailedListener {
+    LocationClient mLocationClient;
+
     public Locator() {
     }
 
@@ -24,6 +27,9 @@ public class Locator extends Service implements
     public void onConnected(Bundle dataBundle) {
         // Display the connection status
         Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+
+        Location mCurrentLocation = mLocationClient.getLastLocation();
+        Log.i("DEBUG", mCurrentLocation.toString());
     }
 
     @Override
@@ -40,23 +46,14 @@ public class Locator extends Service implements
         mLocationClient = new LocationClient(this, this, this);
     }
 
-    protected void onStart() {
-        super.onStart();
+    public void onStart(Intent intent, int i) {
+        super.onStart(intent, i);
         // Connect the client.
         mLocationClient.connect();
     }
 
     @Override
-    protected void onStop() {
-        // Disconnecting the client invalidates it.
-        mLocationClient.disconnect();
-        super.onStop();
+    public IBinder onBind(Intent intent){
+        return null;
     }
-
-    @Override
-    public IBinder onBind(Intent i){
-
-    }
-    LocationClient mLocationClient;
-    Location mCurrentLocation = mLocationClient.getLastLocation();
 }
