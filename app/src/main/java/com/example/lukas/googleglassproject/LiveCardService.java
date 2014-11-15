@@ -6,8 +6,13 @@ import com.google.android.glass.timeline.LiveCard.PublishMode;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.hardware.SensorManager;
@@ -24,6 +29,8 @@ public class LiveCardService extends Service {
 
     private Compass mCompass;
 
+    private Location currentLocation;
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -36,12 +43,56 @@ public class LiveCardService extends Service {
         // get the sensor manager from the device
         SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
+        this.currentLocation = new Location("Lukas");
+        this.currentLocation.setLatitude(25.879738);
+        this.currentLocation.setLongitude(-80.197840);
+
+        Location new_loc = DistanceCalculator.getLocation(25.879738, -80.197840, 0);
+
+        Log.i("LAT", Double.toString(new_loc.getLatitude()));
+        Log.i("LONG", Double.toString(new_loc.getLongitude()));
+
+//        Intent i= new Intent(this, Locator.class);
+//        // potentially add data to the intent
+//        i.putExtra("KEY1", "Value to be used by the service");
+//        this.startService(i);
+
+
+        //ReverseGeocodeLookupTask task = new ReverseGeocodeLookupTask();
+        //task.applicationContext = this;
+        //task.execute();
         // and create the compass
-        this.mCompass = new Compass(sensorManager);
+        //this.mCompass = new Compass(sensorManager);
 
         // also we need to start the compass
-        this.mCompass.start();
+        //this.mCompass.start();
 
+
+    }
+
+    public class ReverseGeocodeLookupTask extends AsyncTask<Void, Void, String> {
+        protected Context applicationContext;
+
+        @Override
+        protected void onPreExecute() {
+            ;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String localityName = "";
+
+            if (currentLocation != null) {
+                //Log.i("LUkas", RevGeoCoder.RevGeocode(currentLocation));
+            }
+
+            return localityName;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            ;
+        }
     }
 
     @Override

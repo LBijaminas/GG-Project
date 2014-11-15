@@ -1,4 +1,4 @@
-package edu.barry.seminar.glass;
+package com.example.lukas.googleglassproject;
 
 import android.app.Service;
 import android.content.Context;
@@ -33,11 +33,14 @@ public class Locator extends Service {
                 Log.i("[DEBUG] Location: ", l.toString());
             }
 
-            public void onStatusChanged(String provider, int status, Bundle extras) {}
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+            }
 
-            public void onProviderEnabled(String provider) {}
+            public void onProviderEnabled(String provider) {
+            }
 
-            public void onProviderDisabled(String provider) {}
+            public void onProviderDisabled(String provider) {
+            }
         };
 
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0,
@@ -47,7 +50,7 @@ public class Locator extends Service {
     }
 
     @Override
-    public IBinder onBind(Intent intent){
+    public IBinder onBind(Intent intent) {
         return mBinder;
     }
 }

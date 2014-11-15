@@ -6,15 +6,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import edu.barry.seminar.glass.Locator;
-
 /**
  * A transparent {@link Activity} displaying a "Stop" options menu to remove the {Live Card}.
  */
 public class LiveCardMenuActivity extends Activity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         //creates a new intent on the creation of the activity and starts the service
         Intent locationIntent = new Intent(this, Locator.class);
         startService(locationIntent);
