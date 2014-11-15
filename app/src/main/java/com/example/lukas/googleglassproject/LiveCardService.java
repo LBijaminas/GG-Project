@@ -47,10 +47,15 @@ public class LiveCardService extends Service {
         this.currentLocation.setLatitude(25.879738);
         this.currentLocation.setLongitude(-80.197840);
 
-        Location new_loc = DistanceCalculator.getLocation(25.879738, -80.197840, 0);
+        String b_name = DistanceCalculator.scanForBuilding(25.879738, -80.197840, 0);
 
-        Log.i("LAT", Double.toString(new_loc.getLatitude()));
-        Log.i("LONG", Double.toString(new_loc.getLongitude()));
+        //String b_name = (new Buildings()).GetBuildingName(25.879738, -80.19783999999999);
+
+        try {
+            Log.i("B_NAME", b_name);
+        } catch (Exception e) {
+            Log.i("ERROR", "Building not found");
+        }
 
 //        Intent i= new Intent(this, Locator.class);
 //        // potentially add data to the intent
