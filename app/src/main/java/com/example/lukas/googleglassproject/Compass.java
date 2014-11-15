@@ -104,7 +104,7 @@ public class Compass {
      * @return the user's current heading, in degrees
      */
     public float getDegrees() {
-        return this.degrees;
+        return (this.degrees > 0) ? this.degrees : (this.degrees + 360);
     }
 
 }
