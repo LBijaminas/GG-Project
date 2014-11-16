@@ -58,13 +58,18 @@ public class DistanceCalculator {
         Location temp_loc;
 
         String b_name; // string to hold building name
+
         // create a Buildings instance for checking
         Buildings build;
 
+        /*
+            Incrementally, check whether we hit a building ahead of the user
+         */
         for (; inc <= MAX_DISTANCE; inc += INCREMENT) {
-            ang_distance = (double) inc / (double) RADIUS;
+            ang_distance = (double) inc / (double) RADIUS; // calculate angular distance
             temp_loc = getLocation();
 
+            // found a building
             if ((b_name = (new Buildings()).GetBuildingName(temp_loc.getLatitude(), temp_loc.getLongitude())) != null) {
                 return b_name;
             }
