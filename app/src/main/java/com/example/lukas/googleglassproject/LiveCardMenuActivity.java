@@ -29,7 +29,7 @@ public class LiveCardMenuActivity extends Activity {
 
         /*
             TODO: Hugo, I couldn't figure out how to access a variable from within the service, so I exported it here.
-                 If you can, please take a look at it
+                 If you can, please take a look at itd
          */
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 

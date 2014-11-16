@@ -17,7 +17,7 @@ public class DistanceCalculator {
     }
 
     /**
-     * Given on the params, it calculates a new location and returns it as an Android object
+     * It calculates a new location and returns it as an Android object
      * @return Android.Location with the new location
      */
     private static Location getLocation() {
@@ -42,7 +42,7 @@ public class DistanceCalculator {
     }
 
     /**
-     * Given on the params, it calculates a new location and returns it as an Android object
+     * Given on the params, it finds whether a building is in front of the viewport or not
      *
      * @param lat     current latitude
      * @param longt   current longitude
