@@ -40,33 +40,12 @@ public class LiveCardService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        // get the sensor manager from the device
-        SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-
-        this.currentLocation = new Location("Lukas");
-        this.currentLocation.setLatitude(25.879738);
-        this.currentLocation.setLongitude(-80.197840);
-
-        String b_name = DistanceCalculator.scanForBuilding(25.879738, -80.197840, 0);
-
-        //String b_name = (new Buildings()).GetBuildingName(25.879738, -80.19783999999999);
-
-        try {
-            Log.i("B_NAME", b_name);
-        } catch (Exception e) {
-            Log.i("ERROR", "Building not found");
-        }
 
 //        Intent i= new Intent(this, Locator.class);
 //        // potentially add data to the intent
 //        i.putExtra("KEY1", "Value to be used by the service");
 //        this.startService(i);
 
-
-        //ReverseGeocodeLookupTask task = new ReverseGeocodeLookupTask();
-        //task.applicationContext = this;
-        //task.execute();
-        // and create the compass
         //this.mCompass = new Compass(sensorManager);
 
         // also we need to start the compass
@@ -75,30 +54,6 @@ public class LiveCardService extends Service {
 
     }
 
-    public class ReverseGeocodeLookupTask extends AsyncTask<Void, Void, String> {
-        protected Context applicationContext;
-
-        @Override
-        protected void onPreExecute() {
-            ;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            String localityName = "";
-
-            if (currentLocation != null) {
-                //Log.i("LUkas", RevGeoCoder.RevGeocode(currentLocation));
-            }
-
-            return localityName;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            ;
-        }
-    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
