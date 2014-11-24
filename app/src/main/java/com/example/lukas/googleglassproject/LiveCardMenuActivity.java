@@ -1,6 +1,7 @@
 package com.example.lukas.googleglassproject;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -23,34 +25,31 @@ public class LiveCardMenuActivity extends Activity {
     Location currentLocation;
     LocationManager locationManager;
 
+    private Locator locator;
+
+    private ServiceConnection locatorConnection;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         /*
-            TODO: Hugo, I couldn't figure out how to access a variable from within the service, so I exported it here.
-                 If you can, please take a look at itd
+         * Monitors state of service.
          */
-        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-        LocationListener locationListener = new LocationListener() {
-            public void onLocationChanged(Location location) {
-                currentLocation = location;
-                //Log.i("[DEBUG] Location: ", l.toString());
+        locatorConnection = new ServiceConnection() {
+            public void onServiceConnected(ComponentName className, IBinder service) {
+                // get the locator instance from the binder
+                locator = ((Locator.LocalBinder)service).getLocator();
             }
 
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-            }
-
-            public void onProviderEnabled(String provider) {
-            }
-
-            public void onProviderDisabled(String provider) {
+            public void onServiceDisconnected(ComponentName className) {
+                // we don't need the locator anymore so make sure it isn't used
+                locator = null;
             }
         };
 
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0,
-                locationListener);
+        // bind the activity to the Locator service
+        bindService(new Intent(this, Locator.class), locatorConnection, Context.BIND_AUTO_CREATE);
 
         /*
          * TODO: Initialize the GUI here.
@@ -110,4 +109,8 @@ public class LiveCardMenuActivity extends Activity {
         // Nothing else to do, finish the Activity.
         finish();
     }
+
+    /*
+     * This class handles connecting and disconnecting from the Locator service.
+     */
 }
