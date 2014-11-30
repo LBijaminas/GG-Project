@@ -5,7 +5,9 @@ import com.google.android.glass.timeline.LiveCard.PublishMode;
 
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,6 +20,9 @@ import android.widget.RemoteViews;
 import android.hardware.SensorManager;
 import android.content.Context;
 
+import android.os.Handler;
+import android.widget.TextView;
+
 /**
  * A {@link Service} that publishes a {@link LiveCard} in the timeline.
  */
@@ -29,7 +34,10 @@ public class LiveCardService extends Service {
 
     private Compass mCompass;
 
-    private Location currentLocation;
+    private ServiceConnection locatorConnection;
+    private Locator locator;
+
+    private Handler mHandler;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -39,6 +47,11 @@ public class LiveCardService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        // start our wanted activity
+        Intent dialogIntent = new Intent(getBaseContext(), MainActivity.class);
+        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getApplication().startActivity(dialogIntent);
 
 
 //        Intent i= new Intent(this, Locator.class);

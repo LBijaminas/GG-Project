@@ -67,8 +67,6 @@ public class Compass {
                 degrees = (float) (Math.toDegrees(orientation[0]) % 360.0f) - ARM_DISPLACEMENT_DEGREES;
 
 
-                // log to see the output
-                Log.i("LUKAS", Float.toString(degrees));
             }
         }
 

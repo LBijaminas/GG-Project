@@ -11,12 +11,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * A transparent {@link Activity} displaying a "Stop" options menu to remove the {Live Card}.
@@ -29,54 +31,22 @@ public class LiveCardMenuActivity extends Activity {
 
     private ServiceConnection locatorConnection;
 
+    private Handler mHandler;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /*
-         * Monitors state of service.
-         */
-        locatorConnection = new ServiceConnection() {
-            public void onServiceConnected(ComponentName className, IBinder service) {
-                // get the locator instance from the binder
-                locator = ((Locator.LocalBinder)service).getLocator();
-            }
-
-            public void onServiceDisconnected(ComponentName className) {
-                // we don't need the locator anymore so make sure it isn't used
-                locator = null;
-            }
-        };
-
-        // bind the activity to the Locator service
-        bindService(new Intent(this, Locator.class), locatorConnection, Context.BIND_AUTO_CREATE);
-
         /*
          * TODO: Initialize the GUI here.
          */
+//
+//        Log.i("Loc_Lat", Double.toString(locator.l.getLatitude()));
+//        Log.i("Loc_Lon", Double.toString(locator.l.getLongitude()));
+        // get the sensor manager from the device
+
     }
 
-    @Override
-    public boolean onKeyDown(int keycode, KeyEvent event) {
-        if (keycode == KeyEvent.KEYCODE_BACK) {
-            // get the sensor manager from the device
-            SensorManager sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 
-            Log.i("Long", Double.toString(currentLocation.getLongitude()));
-            Log.i("Lat", Double.toString(currentLocation.getLatitude()));
-
-            String b_name = DistanceCalculator.scanForBuilding(25.879738, -80.197840, 0);
-
-
-            try {
-                Log.i("B_NAME", b_name);
-            } catch (Exception e) {
-                Log.i("ERROR", "Building not found");
-            }
-            return true;
-        }
-        return super.onKeyDown(keycode, event);
-    }
 
     @Override
     public void onAttachedToWindow() {
