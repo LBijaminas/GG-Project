@@ -30,6 +30,8 @@ public class MainActivity extends Activity {
 
     private Compass mCompass;
 
+    private int count = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,10 +61,10 @@ public class MainActivity extends Activity {
         bindService(new Intent(this, Locator.class), locatorConnection, Context.BIND_AUTO_CREATE);
 
         mCompass.start();
-
         new Thread(new Runnable() {
             @Override
             public void run() {
+
                 // infinite loop
                 while (true) {
                     try {
@@ -78,9 +80,8 @@ public class MainActivity extends Activity {
 //                                Log.i("Loc_Lon", Double.toString(locator.l.getLongitude()));
 //                                Log.i("Degrees", Double.toString(mCompass.getDegrees()));
 
-                                //String b_name = DistanceCalculator.scanForBuilding(locator.l.getLatitude(), locator.l.getLongitude(), mCompass.getDegrees());
+                                String b_name = DistanceCalculator.scanForBuilding(locator.l.getLatitude(), locator.l.getLongitude(), mCompass.getDegrees());
 
-                                String b_name = DistanceCalculator.scanForBuilding(25.879579, -80.197408, 270);
 
                                 try {
                                     ((TextView) findViewById(R.id.location_name)).setText(b_name);
