@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
                 // infinite loop
                 while (true) {
                     try {
-                        // wait for 2 seconds
+                        // wait for 3 seconds
                         Thread.sleep(3000);
                         mCompass.flag = true;
                         mHandler.post(new Runnable() {
