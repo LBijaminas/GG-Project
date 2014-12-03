@@ -70,7 +70,7 @@ public class Compass {
                 //calculate the degrees
                 degrees = (float) (Math.toDegrees(orientation[0]) % 360.0f) - ARM_DISPLACEMENT_DEGREES;
 
-                Log.d("Degrees", Double.toString(degrees));
+                //Log.d("Degrees", Double.toString(degrees));
             }
         }
 
