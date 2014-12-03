@@ -33,6 +33,8 @@ public class Compass {
     private float degrees;
     private GeomagneticField mGeomagneticField;
 
+    public boolean flag = false; // this flag will be used to handling the angle calculation
+
     // create the event handler
     private SensorEventListener sensorListener = new SensorEventListener() {
 
@@ -50,7 +52,9 @@ public class Compass {
 
             // we only care about the rotation about our axis, so let's
             // see if the rotation happened
-            if (event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
+
+            // handle the flag
+            if (flag && event.sensor.getType() == Sensor.TYPE_ROTATION_VECTOR) {
 
                 // get the rotation matrix and put it into our variable
                 SensorManager.getRotationMatrixFromVector(rotationMatrix, event.values);
@@ -66,7 +70,7 @@ public class Compass {
                 //calculate the degrees
                 degrees = (float) (Math.toDegrees(orientation[0]) % 360.0f) - ARM_DISPLACEMENT_DEGREES;
 
-
+                Log.d("Degrees", Double.toString(degrees));
             }
         }
 

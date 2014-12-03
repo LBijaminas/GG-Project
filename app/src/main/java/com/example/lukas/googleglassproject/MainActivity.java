@@ -70,27 +70,25 @@ public class MainActivity extends Activity {
                     try {
                         // wait for 2 seconds
                         Thread.sleep(3000);
+                        mCompass.flag = true;
                         mHandler.post(new Runnable() {
 
                             @Override
                             public void run() {
 
-
 //                                Log.i("Loc_Lat", Double.toString(locator.l.getLatitude()));
 //                                Log.i("Loc_Lon", Double.toString(locator.l.getLongitude()));
 //                                Log.i("Degrees", Double.toString(mCompass.getDegrees()));
 
-                                String b_name = DistanceCalculator.scanForBuilding(locator.l.getLatitude(), locator.l.getLongitude(), mCompass.getDegrees());
+                                //String b_name = DistanceCalculator.scanForBuilding(locator.l.getLatitude(), locator.l.getLongitude(), mCompass.getDegrees());
 
 
                                 try {
-                                    ((TextView) findViewById(R.id.location_name)).setText(b_name);
-                                    Log.i("Building name", b_name);
+                                    //((TextView) findViewById(R.id.location_name)).setText(b_name);
+                                    //Log.i("Building name", b_name);
                                 } catch (Exception e) {
                                     Log.i("ERROR", "Building not found");
                                 }
-
-                                // let's stop the compass, so the glass doesnt heat up
                             }
                         });
                     } catch (NullPointerException e) {
