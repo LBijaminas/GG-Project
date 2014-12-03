@@ -74,15 +74,17 @@ public class MainActivity extends Activity {
                             public void run() {
 
 
-                                Log.i("Loc_Lat", Double.toString(locator.l.getLatitude()));
-                                Log.i("Loc_Lon", Double.toString(locator.l.getLongitude()));
-                                Log.i("Degrees", Double.toString(mCompass.getDegrees()));
+//                                Log.i("Loc_Lat", Double.toString(locator.l.getLatitude()));
+//                                Log.i("Loc_Lon", Double.toString(locator.l.getLongitude()));
+//                                Log.i("Degrees", Double.toString(mCompass.getDegrees()));
 
-                                String b_name = DistanceCalculator.scanForBuilding(25.879738, -80.197840, mCompass.getDegrees());
+                                //String b_name = DistanceCalculator.scanForBuilding(locator.l.getLatitude(), locator.l.getLongitude(), mCompass.getDegrees());
 
+                                String b_name = DistanceCalculator.scanForBuilding(25.879579, -80.197408, 270);
 
                                 try {
                                     ((TextView) findViewById(R.id.location_name)).setText(b_name);
+                                    Log.i("Building name", b_name);
                                 } catch (Exception e) {
                                     Log.i("ERROR", "Building not found");
                                 }
@@ -90,12 +92,14 @@ public class MainActivity extends Activity {
                                 // let's stop the compass, so the glass doesnt heat up
                             }
                         });
-                    } catch (Exception e) {
+                    } catch (NullPointerException e) {
                         /*
                          * It takes some time for the location to generate the first update. 3 seconds should be
                          * more than enough, but let's have this error handler just in case
                          */
                         Log.i("Error", "Location not yet updated");
+                    } catch (InterruptedException e) {
+
                     }
                 }
             }

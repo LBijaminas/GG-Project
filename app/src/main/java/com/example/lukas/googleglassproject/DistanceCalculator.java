@@ -8,7 +8,7 @@ import android.util.Log;
  */
 public class DistanceCalculator {
     private final static int RADIUS = 6371000; // earth's radius in meters
-    private final static int INCREMENT = 5; // 5 meters increment
+    private final static int INCREMENT = 4; // 5 meters increment
     private final static int MAX_DISTANCE = 400; // 400 meters is the maximum distance to search for
 
     private static double lat, longt, bearing, ang_distance;
@@ -68,6 +68,9 @@ public class DistanceCalculator {
         for (; inc <= MAX_DISTANCE; inc += INCREMENT) {
             ang_distance = (double) inc / (double) RADIUS; // calculate angular distance
             temp_loc = getLocation();
+
+            //Log.i("Calculator Point, Lat", Double.toString(temp_loc.getLatitude()));
+            //Log.i("Calculator Point, Lon", Double.toString(temp_loc.getLongitude()));
 
             // found a building
             if ((b_name = (new Buildings()).GetBuildingName(temp_loc.getLatitude(), temp_loc.getLongitude())) != null) {
